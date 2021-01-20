@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import s from './ContactsList.module.css';
 import Filter from '../Filter';
 
-function ContactsList({ filterContacts, title, onDeleteContact }) {
+function ContactsList({ filteredContacts, title, onDeleteContact }) {
   return (
     <>
       <h2 className={s.title}>{title}</h2>
@@ -13,8 +13,8 @@ function ContactsList({ filterContacts, title, onDeleteContact }) {
       <Filter />
 
       <ul className={s.contactsList}>
-        {filterContacts.length > 0 &&
-          filterContacts.map(({ id, name, tel }) => (
+        {filteredContacts.length > 0 &&
+          filteredContacts.map(({ id, name, tel }) => (
             <li key={id} className={s.contact}>
               <span className={s.name}>{name}</span>
               <span className={s.phone}>{tel}</span>
@@ -39,14 +39,15 @@ ContactsList.propTypes = {
 };
 
 const getFilteredContacts = (allContacts, filter) => {
-  const normalizeFilter = filter.filter.toLowerCase();
-  return allContacts.filter(({ name }) =>
-    name.toLowerCase().includes(normalizeFilter),
+  const normalizeFilter = filter.toLowerCase();
+
+  return allContacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizeFilter),
   );
 };
 
 const mapStateToProps = state => ({
-  filterContacts: getFilteredContacts(state.contacts, state.filter),
+  filteredContacts: getFilteredContacts(state.contacts, state.filter),
 });
 
 const mapDispatchToProps = dispatch => ({

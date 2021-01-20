@@ -70,5 +70,5 @@ function App({ contacts, onAddContact, onDeleteContact }) {
 //   };
 // };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps)(App);
 export default App;

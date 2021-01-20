@@ -20,7 +20,7 @@ export const filterContacts = text => ({
   payload: text,
 });
 
-export const handlerUniqName = name => ({
-  type: 'contacts/uniqName',
+export const uniqName = name => ({
+  type: types.UNIQ,
   payload: name,
 });

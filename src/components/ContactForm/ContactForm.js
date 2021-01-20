@@ -5,7 +5,7 @@ import * as actions from '../../redux/contacts/contacts-actions';
 import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
-function ContactForm({ onAdd, onCheckforUniqName }) {
+function ContactForm({ contacts, onAdd, onCheckforUniqName }) {
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
 
@@ -17,16 +17,28 @@ function ContactForm({ onAdd, onCheckforUniqName }) {
     setTel(e.target.value);
   };
 
+  onCheckforUniqName = name => {
+    const uniqName = !!contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+    if (uniqName) {
+      alert(`${name} is already in contacts`);
+      reset();
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
 
-    // const checkUniqName = onCheckforUniqName(name);
-    // if (!checkUniqName) return;
+    const checkUniqName = onCheckforUniqName(name);
+    if (!checkUniqName) return;
 
-    // if (!(name && tel)) {
-    //   alert('Empty field');
-    //   return;
-    // }
+    if (!(name && tel)) {
+      alert('Empty field');
+      return;
+    }
 
     onAdd(name, tel);
     reset();
@@ -71,8 +83,15 @@ ContactForm.propTypes = {
   onCheckforUniqName: PropTypes.func,
 };
 
+const mapStateToProps = state => {
+  return {
+    contacts: state.contacts,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   onAdd: (name, tel) => dispatch(actions.addContact(name, tel)),
+  onCheckforUniqName: name => dispatch(actions.uniqName(name)),
 });
 
-export default connect(null, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
