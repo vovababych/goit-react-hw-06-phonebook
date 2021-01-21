@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../redux/contacts/contacts-actions';
-// import { v4 as uuidv4 } from 'uuid';
+import actions from '../../redux/contacts/contacts-actions';
 import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
@@ -90,8 +89,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onAdd: (name, tel) => dispatch(actions.addContact(name, tel)),
-  onCheckforUniqName: name => dispatch(actions.uniqName(name)),
+  onAdd: (name, tel) => dispatch(actions.ADD(name, tel)),
+  onCheckforUniqName: name => dispatch(actions.UNIQNAME(name)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
