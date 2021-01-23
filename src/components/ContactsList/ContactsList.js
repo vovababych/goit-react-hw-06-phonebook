@@ -23,7 +23,9 @@ function ContactsList({ title }) {
             <li key={id} className={s.contact}>
               <span className={s.name}>{name}</span>
               <span className={s.phone}>
-                <a href={`tel:+${tel.replace(/[^\d;]/g, '')}`}>{tel}</a>
+                <a href={`tel:+${tel.toString().replace(/[^\d;]/g, '')}`}>
+                  {tel}
+                </a>
               </span>
               <button
                 className={s.btnDeleteContact}
