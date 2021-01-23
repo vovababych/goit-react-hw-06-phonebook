@@ -1,16 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/contacts/contacts-actions';
+import { getFilteredContacts } from '../../redux/contacts/contacts-selectors';
 import PropTypes from 'prop-types';
 import s from './ContactsList.module.css';
 
-function ContactsList({ title }) {
-  const filteredContacts = useSelector(state =>
-    state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(state.filter.toLowerCase()),
-    ),
-  );
-
+function ContactsList() {
+  const filteredContacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
+
   const onDeleteContact = id => dispatch(actions.DELETE(id));
 
   return (

@@ -22,16 +22,16 @@ const middleware = [
   logger,
 ];
 
-const persistConfig = {
+const contactsPersistConfig = {
   key: 'contacts',
   storage,
   blacklist: ['filter', '_persist'],
 };
 
-const persistedReducer = persistReducer(persistConfig, contactReducer);
+// const persistedReducer = persistReducer(contactsPersistConfig, contactReducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: { contacts: persistReducer(contactsPersistConfig, contactReducer) },
   devTools: process.env.NODE_ENV === 'development',
   middleware,
 });
@@ -39,3 +39,20 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export default { store, persistor };
+
+// const todosPersistConfig = {
+//   key: 'todos',
+//   storage,
+//   blacklist: ['filter'],
+// };
+
+// export const store = configureStore({
+//   reducer: {
+//     todos: persistReducer(todosPersistConfig, todosReducer),
+//     counter: counterReducer,
+//   },
+//   middleware,
+//   devTools: process.env.NODE_ENV === 'development',
+// });
+
+// export const persistor = persistStore(store);
