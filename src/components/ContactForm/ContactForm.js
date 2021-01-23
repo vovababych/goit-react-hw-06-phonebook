@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/contacts/contacts-actions';
 import PropTypes from 'prop-types';
 import s from './ContactForm.module.css';
 
-function ContactForm({ contacts, onAdd, onCheckforUniqName }) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const handleChangeName = e => {
     setName(e.target.value);
@@ -16,7 +18,9 @@ function ContactForm({ contacts, onAdd, onCheckforUniqName }) {
     setTel(e.target.value);
   };
 
-  onCheckforUniqName = name => {
+  const onAdd = (name, tel) => dispatch(actions.ADD(name, tel));
+
+  const onCheckforUniqName = name => {
     const uniqName = !!contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
@@ -25,7 +29,17 @@ function ContactForm({ contacts, onAdd, onCheckforUniqName }) {
       reset();
       return false;
     }
-    return true;
+    if (!(name && tel)) {
+      alert('Empty field');
+      return false;
+    }
+
+    return dispatch(actions.UNIQNAME(name));
+  };
+
+  const formatNumber = tel => {
+    const arr = tel.split('');
+    return `+38 (${arr[0]}${arr[1]}${arr[2]}) ${arr[3]}${arr[4]}${arr[5]}-${arr[6]}${arr[7]}-${arr[8]}${arr[9]}`;
   };
 
   const handleSubmit = e => {
@@ -34,12 +48,8 @@ function ContactForm({ contacts, onAdd, onCheckforUniqName }) {
     const checkUniqName = onCheckforUniqName(name);
     if (!checkUniqName) return;
 
-    if (!(name && tel)) {
-      alert('Empty field');
-      return;
-    }
-
-    onAdd(name, tel);
+    const telephone = formatNumber(tel);
+    onAdd(name, telephone);
     reset();
   };
 
@@ -49,31 +59,28 @@ function ContactForm({ contacts, onAdd, onCheckforUniqName }) {
   };
 
   return (
-    <form className={s.form} onSubmit={handleSubmit}>
-      <label className={s.label}>
-        Name
+    <>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <input
-          className={s.input}
           type="text"
           name="name"
           value={name}
+          placeholder="Введите имя"
           onChange={handleChangeName}
         />
-      </label>
-      <label className={s.label}>
-        Number
         <input
-          className={s.input}
           type="tel"
           name="tel"
           value={tel}
+          pattern="[0-9]{10}"
+          placeholder="067 123 45 67"
+          minLength="10"
+          maxLength="10"
           onChange={handleChangeTel}
         />
-      </label>
-      <button className={s.btnAddContact} type="submit">
-        Add contact
-      </button>
-    </form>
+        <input type="submit" value="Сохранить контакт" />
+      </form>
+    </>
   );
 }
 
@@ -82,15 +89,17 @@ ContactForm.propTypes = {
   onCheckforUniqName: PropTypes.func,
 };
 
-const mapStateToProps = state => {
-  return {
-    contacts: state.contacts,
-  };
-};
+export default ContactForm;
 
-const mapDispatchToProps = dispatch => ({
-  onAdd: (name, tel) => dispatch(actions.ADD(name, tel)),
-  onCheckforUniqName: name => dispatch(actions.UNIQNAME(name)),
-});
+// const mapStateToProps = state => {
+//   return {
+//     contacts: state.contacts,
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+// const mapDispatchToProps = dispatch => ({
+//   onAdd: (name, tel) => dispatch(actions.ADD(name, tel)),
+//   onCheckforUniqName: name => dispatch(actions.UNIQNAME(name)),
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

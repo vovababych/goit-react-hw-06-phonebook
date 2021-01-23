@@ -23,9 +23,9 @@ const middleware = [
 ];
 
 const persistConfig = {
-  key: 'hello',
+  key: 'contacts',
   storage,
-  blacklist: ['filter'],
+  blacklist: ['filter', '_persist'],
 };
 
 const persistedReducer = persistReducer(persistConfig, contactReducer);

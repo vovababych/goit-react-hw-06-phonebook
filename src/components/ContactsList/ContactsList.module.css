@@ -1,20 +1,62 @@
-.title {
+.text {
+  text-align: center;
+  font-size: 18px;
 }
+
 .contactsList {
+  margin: 0;
   padding-left: 0;
-  list-style: disc;
 }
+
 .contact {
+  position: relative;
   display: flex;
-  margin-bottom: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+  color: #707981;
+  line-height: 40px;
+  border-radius: 20px;
+  outline: none;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.03);
+  border-bottom: 4px solid #c1c1c138;
+  margin-bottom: 10px;
+  padding-left: 8px;
 }
 .name {
-  width: 150px;
-  margin-right: 20px;
+  width: 118px;
+  margin-right: 10px;
+  color: #707981;
+  font-size: 18px;
+}
+.name::first-letter {
+  text-transform: uppercase;
 }
 .phone {
-  width: 100px;
-  margin-right: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0 10px;
+  background: #e9eff6;
+  line-height: 34px;
+  border-radius: 20px;
+  outline: none;
+  border-bottom: 3px solid #c1c1c138;
 }
+.phone a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .btnDeleteContact {
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  border: none;
+  color: inherit;
+}
+
+.phone {
 }

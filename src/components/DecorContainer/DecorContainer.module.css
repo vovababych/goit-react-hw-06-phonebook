@@ -1,0 +1,93 @@
+.decor {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+.leftDecor,
+.rightDecor {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  background: #f69a73;
+  border-radius: 20px;
+}
+.leftDecor {
+  bottom: 60px;
+  left: -30px;
+}
+.rightDecor {
+  top: 60px;
+  right: -30px;
+}
+.leftDecor:before,
+.leftDecor:after,
+.rightDecor:before,
+.rightDecor:after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  border-radius: 30px;
+  background: white;
+}
+.leftDecor:before {
+  top: -20px;
+}
+.leftDecor:after {
+  top: 20px;
+  left: 10px;
+}
+.rightDecor:before {
+  top: -20px;
+  right: 0;
+}
+.rightDecor:after {
+  top: 20px;
+  right: 10px;
+}
+.circleDecor {
+  position: absolute;
+  bottom: 80px;
+  left: -55px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+}
+.innerDecor {
+  padding: 20px 50px;
+}
+.innerDecor input {
+  display: block;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  background: #e9eff6;
+  line-height: 40px;
+  border-width: 0;
+  border-radius: 20px;
+  outline: none;
+  border-bottom: 4px solid #c1c1c138;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.innerDecor input[type='submit'] {
+  margin-top: 30px;
+  background: #f69a73;
+  border-bottom: 4px solid #d87d56;
+  color: white;
+  font-size: 14px;
+}
+
+.titleDecor {
+  margin-top: 0;
+  font-weight: 500;
+  font-size: 24px;
+  color: #707981;
+  text-align: center;
+  margin-bottom: 6px;
+}

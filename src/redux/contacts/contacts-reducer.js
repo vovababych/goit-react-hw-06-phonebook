@@ -12,7 +12,7 @@ const contacts = createReducer(initialState, {
   [actions.ADD]: (state, { payload }) => [...state, payload],
   [actions.DELETE]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
-  // [actions.UNIQNAME]: state => state,
+  [actions.UNIQNAME]: state => state,
 });
 
 const filter = createReducer('', {
